@@ -1,3 +1,11 @@
+export function isSupported (el) {
+  if (el.requestFullscreen) return true
+  if (el.webkitRequestFullscreen) return true
+  if (el.mozRequestFullScreen) return true
+  if (el.msRequestFullscreen) return true
+  return false
+}
+
 export function request (el) {
   if (el.requestFullscreen) el.requestFullscreen()
   else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen()

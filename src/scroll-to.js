@@ -16,13 +16,11 @@ export default function scrollTo (position, duration, horizontal, obj) {
       if (position !== que[obj]) return reject(new Error('Another scroll detected'))
       scrollCount += Math.PI / (duration / (newTimestamp - oldTimestamp))
       if (scrollCount >= Math.PI) {
-        console.log('done', position)
         setPosition(position)
         return resolve()
       }
       if (getPosition() === position) return resolve()
       const newPosition = position + Math.round(cosParameter + cosParameter * Math.cos(scrollCount))
-      console.log('A', newPosition)
       setPosition(newPosition)
       if (newPosition === position) return resolve()
       oldTimestamp = newTimestamp
