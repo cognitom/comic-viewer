@@ -14,14 +14,16 @@ export default {
     babel({
       babelrc: false,
       presets: [['es2015', {modules: false}]],
-      plugins: ['external-helpers']
+      plugins: [
+        // 'external-helpers'
+      ]
     })
   ],
   context: 'window',
   targets: [
     {dest: 'dist/comic-viewer.js', format: 'iife'},
-    {dest: 'dist/bundle.cjs.js', format: 'cjs'},
-    {dest: 'dist/bundle.umd.js', format: 'umd'},
-    {dest: 'dist/bundle.es.js', format: 'es'}
+    {dest: 'dist/comic-viewer.cjs.js', format: 'cjs'},
+    {dest: 'dist/comic-viewer.umd.js', format: 'umd'},
+    {dest: 'dist/comic-viewer.es.js', format: 'es'}
   ]
 }

@@ -7,90 +7,15 @@ riot.tag2('icon-fullscreen', '<svg version="1.1" xmlns="http://www.w3.org/2000/s
 
 riot.tag2('icon-close', '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewbox="0 0 384.97 384.97"> <path d="M384.97,12.03c0-6.713-5.317-12.03-12.03-12.03H264.847c-6.833,0-11.922,5.39-11.934,12.223 c0,6.821,5.101,11.838,11.934,11.838h96.062l-0.193,96.519c0,6.833,5.197,12.03,12.03,12.03c6.833-0.012,12.03-5.197,12.03-12.03 l0.193-108.369c0-0.036-0.012-0.06-0.012-0.084C384.958,12.09,384.97,12.066,384.97,12.03z"></path> <path d="M120.496,0H12.403c-0.036,0-0.06,0.012-0.096,0.012C12.283,0.012,12.247,0,12.223,0C5.51,0,0.192,5.317,0.192,12.03 L0,120.399c0,6.833,5.39,11.934,12.223,11.934c6.821,0,11.838-5.101,11.838-11.934l0.192-96.339h96.242 c6.833,0,12.03-5.197,12.03-12.03C132.514,5.197,127.317,0,120.496,0z"></path> <path d="M120.123,360.909H24.061v-96.242c0-6.833-5.197-12.03-12.03-12.03S0,257.833,0,264.667v108.092 c0,0.036,0.012,0.06,0.012,0.084c0,0.036-0.012,0.06-0.012,0.096c0,6.713,5.317,12.03,12.03,12.03h108.092 c6.833,0,11.922-5.39,11.934-12.223C132.057,365.926,126.956,360.909,120.123,360.909z"></path> <path d="M372.747,252.913c-6.833,0-11.85,5.101-11.838,11.934v96.062h-96.242c-6.833,0-12.03,5.197-12.03,12.03 s5.197,12.03,12.03,12.03h108.092c0.036,0,0.06-0.012,0.084-0.012c0.036-0.012,0.06,0.012,0.096,0.012 c6.713,0,12.03-5.317,12.03-12.03V264.847C384.97,258.014,379.58,252.913,372.747,252.913z"></path> </svg>', 'icon-close,[data-is="icon-close"]{ display: block; width: 32px; fill: currentColor; padding: 4px; }', '', function (opts) {});
 
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
+var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-
-
-
-
-
-
-
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var emitter = new WeakMap();
 
 var Emitter = function () {
 	function Emitter() {
-		classCallCheck(this, Emitter);
+		_classCallCheck$1(this, Emitter);
 
 		emitter.set(this, {
 			events: {}
@@ -99,7 +24,7 @@ var Emitter = function () {
 		this.eventLength = 0;
 	}
 
-	createClass(Emitter, [{
+	_createClass$1(Emitter, [{
 		key: 'on',
 		value: function on(event, cb) {
 			if (typeof cb === 'undefined') {
@@ -175,10 +100,11 @@ var Emitter = function () {
 		}
 	}, {
 		key: 'events',
-		get: function get$$1() {
+		get: function get() {
 			return emitter.get(this).events;
 		}
 	}]);
+
 	return Emitter;
 }();
 
@@ -220,6 +146,16 @@ function pad(num, width) {
   return (p > 0 ? '0'.repeat(p) : '') + numStr;
 }
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var preloadStrategy = [0, 1, -1, -2, 2, 3, 4, 5, 6, 7];
 var defaultOpts = {
   title: '',
@@ -230,13 +166,14 @@ var defaultOpts = {
 };
 
 var Book = function (_Emitter) {
-  inherits(Book, _Emitter);
+  _inherits(Book, _Emitter);
 
   function Book(url) {
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    classCallCheck(this, Book);
 
-    var _this = possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this));
+    _classCallCheck(this, Book);
+
+    var _this = _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this));
 
     var urls = Array.isArray(url) ? url : expandUrl(url);
     Object.assign(_this, defaultOpts, filterProps(opts, defaultOpts));
@@ -251,7 +188,7 @@ var Book = function (_Emitter) {
     return _this;
   }
 
-  createClass(Book, [{
+  _createClass(Book, [{
     key: 'load',
     value: function load() {
       var _this2 = this;
@@ -285,16 +222,17 @@ var Book = function (_Emitter) {
       this.loadingPage.load();
     }
   }]);
+
   return Book;
 }(Emitter);
 
 var Page = function (_Emitter2) {
-  inherits(Page, _Emitter2);
+  _inherits(Page, _Emitter2);
 
   function Page(url, opts) {
-    classCallCheck(this, Page);
+    _classCallCheck(this, Page);
 
-    var _this4 = possibleConstructorReturn(this, (Page.__proto__ || Object.getPrototypeOf(Page)).call(this));
+    var _this4 = _possibleConstructorReturn(this, (Page.__proto__ || Object.getPrototypeOf(Page)).call(this));
 
     _this4.url = url;
     _this4.loading = false;
@@ -304,7 +242,7 @@ var Page = function (_Emitter2) {
     return _this4;
   }
 
-  createClass(Page, [{
+  _createClass(Page, [{
     key: 'load',
     value: function load() {
       var _this5 = this;
@@ -323,6 +261,7 @@ var Page = function (_Emitter2) {
       };
     }
   }]);
+
   return Page;
 }(Emitter);
 
@@ -336,7 +275,7 @@ function filterProps(obj, ref) {
   return Object.keys(obj).filter(function (key) {
     return ref[key] !== undefined;
   }).reduce(function (acc, key) {
-    return Object.assign(acc, defineProperty({}, key, obj[key]));
+    return Object.assign(acc, _defineProperty({}, key, obj[key]));
   }, {});
 }
 
@@ -358,13 +297,11 @@ function scrollTo(position, duration, horizontal, obj) {
       if (position !== que[obj]) return reject(new Error('Another scroll detected'));
       scrollCount += Math.PI / (duration / (newTimestamp - oldTimestamp));
       if (scrollCount >= Math.PI) {
-        console.log('done', position);
         setPosition(position);
         return resolve();
       }
       if (getPosition() === position) return resolve();
       var newPosition = position + Math.round(cosParameter + cosParameter * Math.cos(scrollCount));
-      console.log('A', newPosition);
       setPosition(newPosition);
       if (newPosition === position) return resolve();
       oldTimestamp = newTimestamp;
@@ -391,63 +328,12 @@ function wait(ms) {
   });
 }
 
-var registered = [];
-var green = true;
-var touchMode = false;
-
-window.addEventListener('touchstart', function () {
-  if (!touchMode) {
-    touchMode = true;
-    for (var i = 0; i < registered.length; i++) {
-      var o = registered[i];
-      o.obj.removeEventListener('scroll', o.delayHandler);
-      o.obj.addEventListener('touchend', o.delayHandler);
-    }
-  }
-});
-
-/**
- * fire when the value get stable
- */
-function register(handler, obj) {
-  obj = obj || window;
-  var timer = void 0;
-  var dispatch = function dispatch() {
-    if (green) handler();
-    timer = null;
-  };
-  var delayHandler = function delayHandler() {
-    if (!green) return;
-    if (timer) window.clearTimeout(timer);
-    if (touchMode) handler();else timer = window.setTimeout(dispatch, 100);
-  };
-  registered.push({ obj: obj, handler: handler, delayHandler: delayHandler });
-  var eventType = touchMode ? 'touchend' : 'scroll';
-  obj.addEventListener(eventType, delayHandler);
-}
-
-function unregister(handler, obj) {
-  obj = obj || window;
-  for (var i = 0; i < registered.length; i++) {
-    var o = registered[i];
-    if (o.obj === obj && o.handler === handler) {
-      var eventType = touchMode ? 'touchend' : 'scroll';
-      registered.splice(i, 1);
-      obj.removeEventListener(eventType, o.delayHandler);
-      return;
-    }
-  }
-  console.log('No such a handler registered');
-}
-
-function stop() {
-  // console.log('scroll detection stopped')
-  green = false;
-}
-
-function start() {
-  // console.log('scroll detection restarted')
-  green = true;
+function isSupported(el) {
+  if (el.requestFullscreen) return true;
+  if (el.webkitRequestFullscreen) return true;
+  if (el.mozRequestFullScreen) return true;
+  if (el.msRequestFullscreen) return true;
+  return false;
 }
 
 function request(el) {
@@ -459,7 +345,7 @@ function exit() {
   if (d.exitFullscreen) d.exitFullscreen();else if (d.webkitExitFullscreen) d.webkitExitFullscreen();else if (d.mozCancelFullScreen) d.mozCancelFullScreen();else if (d.msExitFullscreen) d.msExitFullscreen();
 }
 
-function register$1(handler) {
+function register(handler) {
   var add = document.addEventListener;
   add('fullscreenchange', handler);
   add('webkitfullscreenchange', handler);
@@ -467,7 +353,7 @@ function register$1(handler) {
   add('MSFullscreenChange', handler);
 }
 
-function unregister$1(handler) {
+function unregister(handler) {
   var rem = document.removeEventListener;
   rem('fullscreenchange', handler);
   rem('webkitfullscreenchange', handler);
@@ -479,10 +365,14 @@ function isActive() {
   return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 }
 
-riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header> <div class="outer" riot-style="{outerStyle}"> <div ref="stage" class="{rightToLeft: rightToLeft, inner: true}" riot-style="{innerStyle}" onclick="{toggleMode}" ondblclick="{toggleFullScreen}"> <img if="{plusOneBefore}" class="dummy" riot-src="{stack[0].url}"></span> <img each="{stack}" riot-src="{url}"> <img if="{plusOneAfter}" class="dummy" riot-src="{stack[stack.length - 1].url}"> </div> </div> <footer if="{overviewMode}"> <icon-fullscreen if="{!fullScreenMode}" onclick="{toggleFullScreen}"></icon-fullscreen> <icon-close if="{fullScreenMode}" onclick="{toggleFullScreen}"></icon-close> </footer>', 'comic-viewer,[data-is="comic-viewer"]{ display: block; position: relative; background: #333; overflow: hidden; } comic-viewer:focus,[data-is="comic-viewer"]:focus{ outline: none; } comic-viewer header,[data-is="comic-viewer"] header{ position: absolute; top: 0; left: 0; right: 0; height: 24px; padding: 0 1em; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); line-height: 24px; font-size: 80%; overflow: hidden; } comic-viewer footer,[data-is="comic-viewer"] footer{ position: absolute; bottom: 0; left: 0; right: 0; height: 32px; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); padding: 14px; } comic-viewer footer > icon-fullscreen,[data-is="comic-viewer"] footer > icon-fullscreen,comic-viewer footer > icon-close,[data-is="comic-viewer"] footer > icon-close{ float: right; } comic-viewer div.outer,[data-is="comic-viewer"] div.outer{ overflow: hidden; } comic-viewer div.inner,[data-is="comic-viewer"] div.inner{ padding-bottom: 30px; display: flex; flex-direction: row; overflow-y: hidden; overflow-x: scroll; -webkit-overflow-scrolling: auto; } comic-viewer div.rightToLeft,[data-is="comic-viewer"] div.rightToLeft{ flex-direction: row-reverse; } comic-viewer div > img,[data-is="comic-viewer"] div > img{ height: 100%; } comic-viewer div > img.dummy,[data-is="comic-viewer"] div > img.dummy{ visibility: hidden; }', 'tabindex="0" riot-style="{style}"', function (opts) {
+riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></div> <div class="btn-go-back" onclick="{goBack}"></div> <header if="{title && overviewMode}">{title}</header> <div class="outer" riot-style="{outerStyle}"> <div ref="stage" class="inner" riot-style="{innerStyle}" onclick="{toggleMode}" ondblclick="{toggleFullScreen}"> <img if="{plusOneBefore && !rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> <img each="{stack}" riot-src="{url}"> <img if="{plusOneBefore && rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && !rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> </div> </div> <footer if="{overviewMode}"> <icon-fullscreen if="{!fullScreenMode}" onclick="{toggleFullScreen}"></icon-fullscreen> <icon-close if="{fullScreenMode}" onclick="{toggleFullScreen}"></icon-close> </footer>', 'comic-viewer,[data-is="comic-viewer"]{ display: block; position: relative; background: #333; overflow: hidden; } comic-viewer:focus,[data-is="comic-viewer"]:focus{ outline: none; } comic-viewer header,[data-is="comic-viewer"] header,comic-viewer footer,[data-is="comic-viewer"] footer,comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ position: absolute; z-index: 100; } comic-viewer.fullscreen header,[data-is="comic-viewer"].fullscreen header,comic-viewer.fullscreen footer,[data-is="comic-viewer"].fullscreen footer,comic-viewer.fullscreen .btn-go-forward,[data-is="comic-viewer"].fullscreen .btn-go-forward,comic-viewer.fullscreen .btn-go-back,[data-is="comic-viewer"].fullscreen .btn-go-back{ position: fixed; } comic-viewer header,[data-is="comic-viewer"] header{ top: 0; left: 0; right: 0; height: 24px; padding: 0 1em; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); line-height: 24px; font-size: 80%; overflow: hidden; } comic-viewer footer,[data-is="comic-viewer"] footer{ bottom: 0; left: 0; right: 0; height: 32px; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); padding: 14px; } comic-viewer footer > icon-fullscreen,[data-is="comic-viewer"] footer > icon-fullscreen,comic-viewer footer > icon-close,[data-is="comic-viewer"] footer > icon-close{ float: right; } comic-viewer .outer,[data-is="comic-viewer"] .outer{ overflow: hidden; } comic-viewer .inner,[data-is="comic-viewer"] .inner{ padding-bottom: 30px; display: flex; flex-direction: row; overflow: hidden; -webkit-overflow-scrolling: auto; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ top: 0; bottom: 0; width: 25%; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer.rtol .btn-go-back,[data-is="comic-viewer"].rtol .btn-go-back{ right: 0; left: auto; } comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back,comic-viewer.rtol .btn-go-forward,[data-is="comic-viewer"].rtol .btn-go-forward{ right: auto; left: 0; } comic-viewer div > img,[data-is="comic-viewer"] div > img{ height: 100%; } comic-viewer div > img.dummy,[data-is="comic-viewer"] div > img.dummy{ visibility: hidden; }', 'class="{fullscreen: fullScreenMode, rtol: rightToLeft}" tabindex="0" riot-style="{style}"', function (opts) {
   var _this = this;
 
   var book = void 0;
+  var scrollLeftOnTouchStart = 0;
+  var clientXonTouchStart = 0;
+  var fullScreenIsSupported = false;
+  var fullScreenIsActive = false;
 
   this.title = '';
   this.firstPageSpread = false;
@@ -499,6 +389,7 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
   this.fullScreenMode = false;
 
   this.on('mount', function () {
+    fullScreenIsSupported = isSupported(_this.root);
     book = new Book(opts.pages, {
       title: opts.title,
       firstPageSpread: opts.firstPageSpread === 'yes',
@@ -520,10 +411,12 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
     var props = { title: title, firstPageSpread: firstPageSpread, rightToLeft: rightToLeft, currentIndex: currentIndex, style: style };
     _this.update(props);
 
-    register$1(_this.update);
-    register(_this.scrollEnd, _this.refs.stage);
+    register(_this.update);
     window.addEventListener('optimizedResize', _this.update);
     _this.root.addEventListener('keydown', _this.keydown);
+    _this.root.addEventListener('touchstart', _this.touchstart);
+    _this.root.addEventListener('touchmove', _this.touchmove);
+    _this.root.addEventListener('touchend', _this.touchend);
   });
 
   this.on('update', function () {
@@ -531,7 +424,7 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
     var len = book.pages.length;
     var rToL = book.rightToLeft;
     var fps = _this.firstPageSpread;
-    var fullScreenMode = isActive();
+    var fullScreenMode = isActive() || fullScreenIsActive;
     var styleWidth = fullScreenMode ? window.innerWidth : opts.width ? 'width:' + opts.width + 'px;' : '';
     var styleHeight = fullScreenMode ? window.innerHeight : opts.height ? 'height:' + opts.height + 'px;' : '';
     var style = styleWidth + styleHeight;
@@ -547,7 +440,8 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
     var pageScale = wph > stageWph ? stageHeight / ph : stageWidth / (landscapeMode ? 2 : 1) / pw;
     var stageMarginTop = wph > stageWph ? 0 : (h - stageHeight) / 2;
     var stageMarginRight = wph > stageWph ? (w - stageWidth) / 2 : 0;
-    var outerStyle = '\n        width: ' + stageWidth + 'px;\n        height: ' + stageHeight + 'px;\n        margin: ' + stageMarginTop + 'px ' + stageMarginRight + 'px;\n      ';
+    var fullScreenPolyfill = fullScreenIsSupported || !fullScreenMode ? '' : '\n        position: fixed;\n        top: 0; right: 0; bottom: 0; left: 0;\n      ';
+    var outerStyle = fullScreenPolyfill + ('\n        width: ' + stageWidth + 'px;\n        height: ' + stageHeight + 'px;\n        margin: ' + stageMarginTop + 'px ' + stageMarginRight + 'px;\n      ');
     var innerStyle = '\n        width: ' + stageWidth + 'px;\n        height: ' + stageHeight + 'px;\n      ';
     var from0 = cur - (landscapeMode ? 2 : 1);
     var from = from0 >= 0 ? from0 : 0;
@@ -556,7 +450,7 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
     var to = to0 < len ? to0 : len;
     var plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len);
     var currentIndexInStack = cur - from;
-    var stack = book.pages.slice(from, to);
+    var stack = rToL ? book.pages.slice(from, to).reverse() : book.pages.slice(from, to);
 
     var taken = rToL ? stack.slice(currentIndexInStack + (landscapeMode && !(plusOneBefore && cur === 0) ? 2 : 1), stack.length) : stack.slice(0, currentIndexInStack);
     var scrollLeft = pageScale * ((!rToL && plusOneBefore && cur > 0 ? book.pages[0].width : 0) + taken.reduce(function (acc, page) {
@@ -579,18 +473,13 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
   });
 
   this.on('updated', function () {
-    stop();
     wait(50).then(function () {
       _this.refs.stage.scrollLeft = _this.scrollLeft;
-      return wait(50);
-    }).then(function () {
-      start();
     });
   });
 
   this.on('unmount', function () {
-    unregister$1(_this.update);
-    unregister(_this.scrollEnd, _this.refs.stage);
+    unregister(_this.update);
     window.removeEventListener('optimizedResize', _this.update);
     _this.root.removeEventListener('keydown', _this.keydown);
   });
@@ -600,11 +489,14 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
   };
 
   this.toggleFullScreen = function (e) {
-    if (_this.fullScreenMode) exit();else request(_this.root);
+    if (fullScreenIsSupported) {
+      if (_this.fullScreenMode) exit();else request(_this.root);
+    } else {
+      fullScreenIsActive = !_this.fullScreenMode;
+    }
   };
 
   this.scrollEnd = function (e) {
-    stop();
     var threshold = 0.33;
     var duration = 500;
     var stage = _this.refs.stage;
@@ -617,6 +509,25 @@ riot.tag2('comic-viewer', '<header if="{title && overviewMode}">{title}</header>
     } else {
       scrollTo(_this.scrollLeft, duration, true, stage).then(_this.update);
     }
+  };
+
+  this.touchstart = function (e) {
+    if (e.touches.length != 1) return;
+    scrollLeftOnTouchStart = _this.refs.stage.scrollLeft;
+    clientXonTouchStart = e.touches[0].clientX;
+  };
+
+  this.touchmove = function (e) {
+    if (e.touches.length != 1) return;
+    var scrollLeft = scrollLeftOnTouchStart - (e.touches[0].clientX - clientXonTouchStart);
+    _this.refs.stage.scrollLeft = scrollLeft;
+  };
+
+  this.touchend = function (e) {
+    if (e.changedTouches.length != 1) return;
+    var scrollLeft = scrollLeftOnTouchStart - (e.changedTouches[0].clientX - clientXonTouchStart);
+    _this.refs.stage.scrollLeft = scrollLeft;
+    _this.scrollEnd();
   };
 
   this.keydown = function (e) {

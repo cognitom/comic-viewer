@@ -2,10 +2,13 @@
   "name": "comic-viewer-tag",
   "version": "0.2.0",
   "description": "Display pictures in comic-like-style",
-  "private": true,
+  "main": "dist/comic-viewer.cjs.js",
+  "module": "dist/comic-viewer.es.js",
   "scripts": {
     "start": "npm run build; npm run watch & npm run server",
-    "build": "rollup -c && cp dist/comic-viewer.js demo/ && cp node_modules/riot/riot.js demo/riot.js",
+    "build": "rollup -c && npm run uglify && npm run copy",
+    "copy": "cp dist/comic-viewer.js demo/",
+    "uglify": "uglifyjs dist/comic-viewer.js --compress --mangle --output dist/comic-viewer.min.js",
     "deploy": "gh-pages -d dist",
     "watch": "chokidar 'src/**' -c 'npm run build'",
     "server": "live-server demo/",
@@ -13,8 +16,11 @@
     "standard": "standard src/*.js test/*.js test/*/*.js",
     "test-unit": "mocha --compilers js:babel-register test/unit/*.js"
   },
+  "dependencies": {
+    "es6-event-emitter": "^1.9.0"
+  },
   "peerDependencies": {
-    "riot": "^3.3.1"
+    "riot": "^3.4.3"
   },
   "devDependencies": {
     "babel-plugin-external-helpers": "^6.22.0",
@@ -39,8 +45,5 @@
     "wdio-testingbot-service": "^0.1.7",
     "webdriverio": "^4.7.1"
   },
-  "license": "MIT",
-  "dependencies": {
-    "es6-event-emitter": "^1.9.0"
-  }
+  "license": "MIT"
 }
