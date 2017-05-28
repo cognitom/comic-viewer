@@ -261,6 +261,7 @@
     .btn-go-forward,
     .btn-go-back {
       position: absolute;
+      z-index: 100;
     }    
     :scope.fullscreen header,
     :scope.fullscreen footer,
@@ -279,7 +280,6 @@
       line-height: 24px;
       font-size: 80%;
       overflow: hidden;
-      z-index: 100;
     }
     footer {
       bottom: 0;
@@ -289,7 +289,6 @@
       background: rgba(0,0,0,.8);
       color: rgba(255,255,255,.7);
       padding: 14px;
-      z-index: 100;
     }
     footer > icon-fullscreen,
     footer > icon-close {
