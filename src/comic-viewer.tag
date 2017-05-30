@@ -1,7 +1,7 @@
 <comic-viewer class={fullscreen: fullScreenMode, rtol: rightToLeft} tabindex="0" style={style}>
   <div class="btn-go-forward" onclick={goForward}></div>
   <div class="btn-go-back" onclick={goBack}></div>
-  <header if={title && overviewMode}>{title}</header>
+  <header if={title && toolbarMode}>{title}</header>
   <div class="outer" style={outerStyle}>
     <div ref="stage" class="inner" style={innerStyle} onclick={toggleMode} ondblclick={toggleFullScreen}>
       <img if={plusOneBefore && !rightToLeft} class="dummy" src={stack[0].url} />
@@ -11,7 +11,7 @@
       <img if={plusOneAfter && !rightToLeft} class="dummy" src={stack[stack.length - 1].url} />
     </div>
   </div>
-  <footer if={overviewMode}>
+  <footer if={toolbarMode}>
     <icon-fullscreen if={!fullScreenMode} onclick={toggleFullScreen}/>
     <icon-close if={fullScreenMode} onclick={toggleFullScreen}/>
   </footer>
@@ -40,7 +40,7 @@
     this.style = ''
     this.stageStyle = ''
     this.landscapeMode = false
-    this.overviewMode = false
+    this.toolbarMode = false
     this.fullScreenMode = false
 
     this.on('mount', () => {
@@ -159,7 +159,7 @@
     })
 
     this.toggleMode = e => {
-      this.overviewMode = !this.overviewMode
+      this.toolbarMode = !this.toolbarMode
     }
 
     this.toggleFullScreen = e => {
@@ -171,17 +171,20 @@
       }
     }
 
-    this.scrollEnd = e => {
+    this.adjustScrollPosition = e => {
       const threshold = 0.33
       const duration = 500
       const stage = this.refs.stage
       const sw = this.stageWidth
       const diff = stage.scrollLeft - this.scrollLeft
       if (diff < sw * -1 * threshold) {
+        // go to next page
         scrollTo(0, duration, true, stage).then(this.goForward)
       } else if (diff > sw * threshold) {
+        // go to prev page
         scrollTo(sw * 2, duration, true, stage).then(this.goBack)
       } else {
+        // keep
         scrollTo(this.scrollLeft, duration, true, stage).then(this.update)
       }
     }
@@ -202,23 +205,24 @@
       if (e.changedTouches.length != 1) return
       const scrollLeft = scrollLeftOnTouchStart - (e.changedTouches[0].clientX - clientXonTouchStart)
       this.refs.stage.scrollLeft = scrollLeft
-      this.scrollEnd()
+      this.adjustScrollPosition()
     }
 
     this.keydown = e => {
       switch (e.keyCode) {
-        case 37:
+        case 37: // left arrow key
           if (this.rightToLeft) this.goForward()
           else this.goBack()
           e.preventDefault()
           return
-        case 39:
+        case 39: // right arrow key
           if (this.rightToLeft) this.goBack()
           else this.goForward()
           e.preventDefault()
       }
     }
 
+    /** Go to the next page */
     this.goForward = () => {
       const cur = this.currentIndex
       const len = book.pages.length
@@ -232,6 +236,7 @@
       this.saveBookmark()
     }
 
+    /** Go to the prev page */
     this.goBack = () => {
       this.currentIndex -= this.landscapeMode ? 2 : 1
       if (this.currentIndex < 0) this.currentIndex = 0
@@ -240,6 +245,7 @@
       this.saveBookmark()
     }
 
+    /** Save current the page index to localStorage */
     this.saveBookmark = () => {
       const storeKey = opts.pages
       window.localStorage.setItem(storeKey, this.currentIndex)
