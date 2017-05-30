@@ -28,6 +28,7 @@
     let clientXonTouchStart = 0
     let fullScreenIsSupported = false
     let fullScreenIsActive = false // only used when fullScreenIsSupported == false
+    let iAmBusy = false
 
     this.title = ''
     this.firstPageSpread = false // true: double-face, false: single
@@ -50,7 +51,10 @@
         firstPageSpread: opts.firstPageSpread === 'yes',
         rightToLeft: opts.direction === undefined || opts.direction === 'manga'
       })
-      // book.on('pageLoaded', page => {this.update()})
+      book.on('pageLoaded', page => {
+        if (iAmBusy) return
+        this.update()
+      })
       const title = book.title
       const firstPageSpread = book.firstPageSpread
       const rightToLeft = book.rightToLeft
@@ -179,13 +183,13 @@
       const diff = stage.scrollLeft - this.scrollLeft
       if (diff < sw * -1 * threshold) {
         // go to next page
-        scrollTo(0, duration, true, stage).then(this.goForward)
+        return scrollTo(0, duration, true, stage).then(this.goForward)
       } else if (diff > sw * threshold) {
         // go to prev page
-        scrollTo(sw * 2, duration, true, stage).then(this.goBack)
+        return scrollTo(sw * 2, duration, true, stage).then(this.goBack)
       } else {
         // keep
-        scrollTo(this.scrollLeft, duration, true, stage).then(this.update)
+        return scrollTo(this.scrollLeft, duration, true, stage).then(this.update)
       }
     }
     
@@ -193,6 +197,7 @@
       if (e.touches.length != 1) return
       scrollLeftOnTouchStart = this.refs.stage.scrollLeft
       clientXonTouchStart = e.touches[0].clientX
+      iAmBusy = true
     }
     
     this.touchmove = e => {
@@ -205,7 +210,9 @@
       if (e.changedTouches.length != 1) return
       const scrollLeft = scrollLeftOnTouchStart - (e.changedTouches[0].clientX - clientXonTouchStart)
       this.refs.stage.scrollLeft = scrollLeft
-      this.adjustScrollPosition()
+      this.adjustScrollPosition().then(() => {
+        iAmBusy = false
+      })
     }
 
     this.keydown = e => {
