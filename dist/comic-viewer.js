@@ -365,7 +365,7 @@ function isActive() {
   return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 }
 
-riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></div> <div class="btn-go-back" onclick="{goBack}"></div> <header if="{title && overviewMode}">{title}</header> <div class="outer" riot-style="{outerStyle}"> <div ref="stage" class="inner" riot-style="{innerStyle}" onclick="{toggleMode}" ondblclick="{toggleFullScreen}"> <img if="{plusOneBefore && !rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> <img each="{stack}" riot-src="{url}"> <img if="{plusOneBefore && rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && !rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> </div> </div> <footer if="{overviewMode}"> <icon-fullscreen if="{!fullScreenMode}" onclick="{toggleFullScreen}"></icon-fullscreen> <icon-close if="{fullScreenMode}" onclick="{toggleFullScreen}"></icon-close> </footer>', 'comic-viewer,[data-is="comic-viewer"]{ display: block; position: relative; background: #333; overflow: hidden; } comic-viewer:focus,[data-is="comic-viewer"]:focus{ outline: none; } comic-viewer header,[data-is="comic-viewer"] header,comic-viewer footer,[data-is="comic-viewer"] footer,comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ position: absolute; z-index: 100; } comic-viewer.fullscreen header,[data-is="comic-viewer"].fullscreen header,comic-viewer.fullscreen footer,[data-is="comic-viewer"].fullscreen footer,comic-viewer.fullscreen .btn-go-forward,[data-is="comic-viewer"].fullscreen .btn-go-forward,comic-viewer.fullscreen .btn-go-back,[data-is="comic-viewer"].fullscreen .btn-go-back{ position: fixed; } comic-viewer header,[data-is="comic-viewer"] header{ top: 0; left: 0; right: 0; height: 24px; padding: 0 1em; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); line-height: 24px; font-size: 80%; overflow: hidden; } comic-viewer footer,[data-is="comic-viewer"] footer{ bottom: 0; left: 0; right: 0; height: 32px; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); padding: 14px; } comic-viewer footer > icon-fullscreen,[data-is="comic-viewer"] footer > icon-fullscreen,comic-viewer footer > icon-close,[data-is="comic-viewer"] footer > icon-close{ float: right; } comic-viewer .outer,[data-is="comic-viewer"] .outer{ overflow: hidden; } comic-viewer .inner,[data-is="comic-viewer"] .inner{ padding-bottom: 30px; display: flex; flex-direction: row; overflow: hidden; -webkit-overflow-scrolling: auto; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ top: 0; bottom: 0; width: 25%; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer.rtol .btn-go-back,[data-is="comic-viewer"].rtol .btn-go-back{ right: 0; left: auto; } comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back,comic-viewer.rtol .btn-go-forward,[data-is="comic-viewer"].rtol .btn-go-forward{ right: auto; left: 0; } comic-viewer div > img,[data-is="comic-viewer"] div > img{ height: 100%; } comic-viewer div > img.dummy,[data-is="comic-viewer"] div > img.dummy{ visibility: hidden; }', 'class="{fullscreen: fullScreenMode, rtol: rightToLeft}" tabindex="0" riot-style="{style}"', function (opts) {
+riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></div> <div class="btn-go-back" onclick="{goBack}"></div> <header if="{title && toolbarMode}">{title}</header> <div class="outer" riot-style="{outerStyle}"> <div ref="stage" class="inner" riot-style="{innerStyle}" onclick="{toggleMode}" ondblclick="{toggleFullScreen}"> <img if="{plusOneBefore && !rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> <img each="{stack}" riot-src="{url}"> <img if="{plusOneBefore && rightToLeft}" class="dummy" riot-src="{stack[0].url}"> <img if="{plusOneAfter && !rightToLeft}" class="dummy" riot-src="{stack[stack.length - 1].url}"> </div> </div> <footer if="{toolbarMode}"> <icon-fullscreen if="{!fullScreenMode}" onclick="{toggleFullScreen}"></icon-fullscreen> <icon-close if="{fullScreenMode}" onclick="{toggleFullScreen}"></icon-close> </footer>', 'comic-viewer,[data-is="comic-viewer"]{ display: block; position: relative; background: #333; overflow: hidden; } comic-viewer:focus,[data-is="comic-viewer"]:focus{ outline: none; } comic-viewer header,[data-is="comic-viewer"] header,comic-viewer footer,[data-is="comic-viewer"] footer,comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ position: absolute; z-index: 100; } comic-viewer.fullscreen header,[data-is="comic-viewer"].fullscreen header,comic-viewer.fullscreen footer,[data-is="comic-viewer"].fullscreen footer,comic-viewer.fullscreen .btn-go-forward,[data-is="comic-viewer"].fullscreen .btn-go-forward,comic-viewer.fullscreen .btn-go-back,[data-is="comic-viewer"].fullscreen .btn-go-back{ position: fixed; } comic-viewer header,[data-is="comic-viewer"] header{ top: 0; left: 0; right: 0; height: 24px; padding: 0 1em; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); line-height: 24px; font-size: 80%; overflow: hidden; } comic-viewer footer,[data-is="comic-viewer"] footer{ bottom: 0; left: 0; right: 0; height: 32px; background: rgba(0,0,0,.8); color: rgba(255,255,255,.7); padding: 14px; } comic-viewer footer > icon-fullscreen,[data-is="comic-viewer"] footer > icon-fullscreen,comic-viewer footer > icon-close,[data-is="comic-viewer"] footer > icon-close{ float: right; } comic-viewer .outer,[data-is="comic-viewer"] .outer{ overflow: hidden; } comic-viewer .inner,[data-is="comic-viewer"] .inner{ padding-bottom: 30px; display: flex; flex-direction: row; overflow: hidden; -webkit-overflow-scrolling: auto; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back{ top: 0; bottom: 0; width: 25%; } comic-viewer .btn-go-forward,[data-is="comic-viewer"] .btn-go-forward,comic-viewer.rtol .btn-go-back,[data-is="comic-viewer"].rtol .btn-go-back{ right: 0; left: auto; } comic-viewer .btn-go-back,[data-is="comic-viewer"] .btn-go-back,comic-viewer.rtol .btn-go-forward,[data-is="comic-viewer"].rtol .btn-go-forward{ right: auto; left: 0; } comic-viewer div > img,[data-is="comic-viewer"] div > img{ height: 100%; } comic-viewer div > img.dummy,[data-is="comic-viewer"] div > img.dummy{ visibility: hidden; }', 'class="{fullscreen: fullScreenMode, rtol: rightToLeft}" tabindex="0" riot-style="{style}"', function (opts) {
   var _this = this;
 
   var book = void 0;
@@ -373,6 +373,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
   var clientXonTouchStart = 0;
   var fullScreenIsSupported = false;
   var fullScreenIsActive = false;
+  var iAmBusy = false;
 
   this.title = '';
   this.firstPageSpread = false;
@@ -385,7 +386,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
   this.style = '';
   this.stageStyle = '';
   this.landscapeMode = false;
-  this.overviewMode = false;
+  this.toolbarMode = false;
   this.fullScreenMode = false;
 
   this.on('mount', function () {
@@ -395,7 +396,10 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
       firstPageSpread: opts.firstPageSpread === 'yes',
       rightToLeft: opts.direction === undefined || opts.direction === 'manga'
     });
-
+    book.on('pageLoaded', function (page) {
+      if (iAmBusy) return;
+      _this.update();
+    });
     var title = book.title;
     var firstPageSpread = book.firstPageSpread;
     var rightToLeft = book.rightToLeft;
@@ -485,7 +489,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
   });
 
   this.toggleMode = function (e) {
-    _this.overviewMode = !_this.overviewMode;
+    _this.toolbarMode = !_this.toolbarMode;
   };
 
   this.toggleFullScreen = function (e) {
@@ -496,18 +500,21 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
     }
   };
 
-  this.scrollEnd = function (e) {
+  this.adjustScrollPosition = function (e) {
     var threshold = 0.33;
     var duration = 500;
     var stage = _this.refs.stage;
     var sw = _this.stageWidth;
     var diff = stage.scrollLeft - _this.scrollLeft;
     if (diff < sw * -1 * threshold) {
-      scrollTo(0, duration, true, stage).then(_this.goForward);
+
+      return scrollTo(0, duration, true, stage).then(_this.goForward);
     } else if (diff > sw * threshold) {
-      scrollTo(sw * 2, duration, true, stage).then(_this.goBack);
+
+      return scrollTo(sw * 2, duration, true, stage).then(_this.goBack);
     } else {
-      scrollTo(_this.scrollLeft, duration, true, stage).then(_this.update);
+
+      return scrollTo(_this.scrollLeft, duration, true, stage).then(_this.update);
     }
   };
 
@@ -515,6 +522,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
     if (e.touches.length != 1) return;
     scrollLeftOnTouchStart = _this.refs.stage.scrollLeft;
     clientXonTouchStart = e.touches[0].clientX;
+    iAmBusy = true;
   };
 
   this.touchmove = function (e) {
@@ -527,7 +535,9 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
     if (e.changedTouches.length != 1) return;
     var scrollLeft = scrollLeftOnTouchStart - (e.changedTouches[0].clientX - clientXonTouchStart);
     _this.refs.stage.scrollLeft = scrollLeft;
-    _this.scrollEnd();
+    _this.adjustScrollPosition().then(function () {
+      iAmBusy = false;
+    });
   };
 
   this.keydown = function (e) {
