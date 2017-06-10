@@ -4,16 +4,16 @@
   <header if={title && toolbarMode}>{title}</header>
   <div class="outer" style={outerStyle}>
     <div ref="stage" class="inner" style={innerStyle} onclick={toggleMode} ondblclick={toggleFullScreen}>
-      <img if={plusOneBefore && !rightToLeft} class="dummy" src={stack[0].url} />
-      <img if={plusOneAfter && rightToLeft} class="dummy" src={stack[stack.length - 1].url} />
+      <img if={plusOneLeft} class="dummy" src={stack[rightToLeft ? stack.length - 1 : 0].url} />
       <img each={stack} src={url} />
-      <img if={plusOneBefore && rightToLeft} class="dummy" src={stack[0].url} />
-      <img if={plusOneAfter && !rightToLeft} class="dummy" src={stack[stack.length - 1].url} />
+      <img if={plusOneRight} class="dummy" src={stack[rightToLeft ? 0 : stack.length - 1].url} />
     </div>
   </div>
   <footer if={toolbarMode}>
-    <icon-fullscreen if={!fullScreenMode} onclick={toggleFullScreen}/>
-    <icon-close if={fullScreenMode} onclick={toggleFullScreen}/>
+    <icon-arrow-left onclick={goToLeft} />
+    <icon-arrow-right onclick={goToRight} />
+    <icon-fullscreen-enter if={!fullScreenMode} onclick={toggleFullScreen} />
+    <icon-fullscreen-exit if={fullScreenMode} onclick={toggleFullScreen} />
   </footer>
 
   <script>
@@ -34,6 +34,7 @@
     this.firstPageSpread = false // true: double-face, false: single
     this.rightToLeft = true // true: manga (RtoL), false: comic (LtoR)
 
+    this.pageCount = 0
     this.currentIndex = 0
     this.currentIndexInStack = 0 // in the stack
     this.stack = []
@@ -58,6 +59,7 @@
       const title = book.title
       const firstPageSpread = book.firstPageSpread
       const rightToLeft = book.rightToLeft
+      const pageCount = book.pages.length
 
       const storeKey = opts.pages
       const currentIndex = (window.localStorage.getItem(storeKey) || 0) - 0
@@ -68,7 +70,7 @@
       // the next line is needed for calculating stageSize in calcStatus()
       this.root.setAttribute('style', style)
 
-      const props = {title, firstPageSpread, rightToLeft, currentIndex, style}
+      const props = {title, firstPageSpread, rightToLeft, pageCount, currentIndex, style}
       this.update(props)
 
       fullScreen.register(this.update)
@@ -85,12 +87,8 @@
       const rToL = book.rightToLeft
       const fps = this.firstPageSpread
       const fullScreenMode = fullScreen.isActive() || fullScreenIsActive
-      const styleWidth = fullScreenMode
-        ? window.innerWidth : opts.width
-        ? `width:${opts.width}px;` : ''
-      const styleHeight = fullScreenMode
-        ? window.innerHeight : opts.height
-        ? `height:${opts.height}px;` : ''
+      const styleWidth = fullScreenMode ? window.innerWidth : opts.width ? `width:${opts.width}px;` : ''
+      const styleHeight = fullScreenMode ? window.innerHeight : opts.height ? `height:${opts.height}px;` : ''
       const style = styleWidth + styleHeight
       const w = fullScreenMode ? window.innerWidth : this.root.offsetWidth
       const h = fullScreenMode ? window.innerHeight : this.root.offsetHeight
@@ -125,6 +123,8 @@
       const plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len)
       const currentIndexInStack = cur - from
       const stack = rToL ? book.pages.slice(from, to).reverse() : book.pages.slice(from, to)
+      const plusOneLeft = plusOneBefore && !rToL || plusOneAfter && rToL
+      const plusOneRight = plusOneBefore && rToL || plusOneAfter && !rToL
 
       const taken = rToL
         ? stack.slice(currentIndexInStack + (landscapeMode && !(plusOneBefore && cur === 0) ? 2 : 1), stack.length)
@@ -140,13 +140,13 @@
         landscapeMode,
         style,
         stageWidth,
-        innerStyle,
         outerStyle,
         currentIndexInStack,
+        scrollLeft,
+        innerStyle,
         stack,
-        plusOneBefore,
-        plusOneAfter,
-        scrollLeft
+        plusOneLeft,
+        plusOneRight
       })
     })
 
@@ -228,6 +228,16 @@
           e.preventDefault()
       }
     }
+    
+    this.goToLeft = () => {
+      if (this.rightToLeft) this.goForward()
+      else this.goBack()
+    }
+    
+    this.goToRight = () => {
+      if (this.rightToLeft) this.goBack()
+      else this.goForward()
+    }
 
     /** Go to the next page */
     this.goForward = () => {
@@ -303,8 +313,12 @@
       color: rgba(255,255,255,.7);
       padding: 14px;
     }
-    footer > icon-fullscreen,
-    footer > icon-close {
+    footer > icon-arrow-left,
+    footer > icon-arrow-right {
+      margin-right: 5px;
+    }
+    footer > icon-fullscreen-enter,
+    footer > icon-fullscreen-exit {
       float: right;
     }
     .outer {

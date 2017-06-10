@@ -1,4 +1,4 @@
-<icon-close>
+<icon-fullscreen-enter>
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 384.97 384.97">
     <path d="M384.97,12.03c0-6.713-5.317-12.03-12.03-12.03H264.847c-6.833,0-11.922,5.39-11.934,12.223
     c0,6.821,5.101,11.838,11.934,11.838h96.062l-0.193,96.519c0,6.833,5.197,12.03,12.03,12.03c6.833-0.012,12.03-5.197,12.03-12.03
@@ -16,10 +16,9 @@
 
   <style>
     :scope {
-      display: block;
+      display: inline-block;
       width: 32px;
       fill: currentColor;
-      padding: 4px;
     }
   </style>
-</icon-close>
+</icon-fullscreen-enter>
