@@ -273,7 +273,7 @@
     :scope {
       display: block;
       position: relative;
-      background: #333;
+      background: white;/*#333;*/
       overflow: hidden;
     }
     :scope:focus {
