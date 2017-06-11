@@ -40,7 +40,6 @@
     this.stack = []
 
     this.style = ''
-    this.stageStyle = ''
     this.landscapeMode = false
     this.toolbarMode = false
     this.fullScreenMode = false
@@ -87,15 +86,25 @@
       const rToL = book.rightToLeft
       const fps = this.firstPageSpread
       const fullScreenMode = fullScreen.isActive() || fullScreenIsActive
+      const w = fullScreenMode ? window.innerWidth : this.root.offsetWidth
+      const h = fullScreenMode ? window.innerHeight : this.root.offsetHeight
+      const landscapeMode = h < w
+      const from0 = cur - (landscapeMode ? 2 : 1)
+      const from = from0 >= 0 ? from0 : 0
+      const plusOneBefore = landscapeMode && !fps && from === 0
+      const to0 = from0 + (landscapeMode ? 6 : 3) - (plusOneBefore && cur === 0)
+      const to = to0 < len ? to0 : len
+      const plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len)
+      const currentIndexInStack = cur - from
+      const stack = rToL ? book.pages.slice(from, to).reverse() : book.pages.slice(from, to)
+      const plusOneLeft = plusOneBefore && !rToL || plusOneAfter && rToL
+      const plusOneRight = plusOneBefore && rToL || plusOneAfter && !rToL
       const styleWidth = fullScreenMode ? window.innerWidth : opts.width ? `width:${opts.width}px;` : ''
       const styleHeight = fullScreenMode ? window.innerHeight : opts.height ? `height:${opts.height}px;` : ''
       const style = styleWidth + styleHeight
-      const w = fullScreenMode ? window.innerWidth : this.root.offsetWidth
-      const h = fullScreenMode ? window.innerHeight : this.root.offsetHeight
-      const pw = this.stack.length ? this.stack[0].width : book.defaultPageWidth
-      const ph = this.stack.length ? this.stack[0].height : book.defaultPageHeight
+      const pw = stack.length ? stack[0].width : book.defaultPageWidth
+      const ph = stack.length ? stack[0].height : book.defaultPageHeight
       const wph = w / h
-      const landscapeMode = h < w
       const stageWph = pw * (landscapeMode ? 2 : 1) / ph
       const stageWidth = wph > stageWph ? h * stageWph : w
       const stageHeight = wph > stageWph ? h : w / stageWph
@@ -115,16 +124,6 @@
         width: ${stageWidth}px;
         height: ${stageHeight}px;
       `
-      const from0 = cur - (landscapeMode ? 2 : 1)
-      const from = from0 >= 0 ? from0 : 0
-      const plusOneBefore = landscapeMode && !fps && from === 0
-      const to0 = from0 + (landscapeMode ? 6 : 3) - (plusOneBefore && cur === 0)
-      const to = to0 < len ? to0 : len
-      const plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len)
-      const currentIndexInStack = cur - from
-      const stack = rToL ? book.pages.slice(from, to).reverse() : book.pages.slice(from, to)
-      const plusOneLeft = plusOneBefore && !rToL || plusOneAfter && rToL
-      const plusOneRight = plusOneBefore && rToL || plusOneAfter && !rToL
 
       const taken = rToL
         ? stack.slice(currentIndexInStack + (landscapeMode && !(plusOneBefore && cur === 0) ? 2 : 1), stack.length)
@@ -316,10 +315,12 @@
     footer > icon-arrow-left,
     footer > icon-arrow-right {
       margin-right: 5px;
+      cursor: pointer;
     }
     footer > icon-fullscreen-enter,
     footer > icon-fullscreen-exit {
       float: right;
+      cursor: pointer;
     }
     .outer {
       overflow: hidden;
@@ -336,6 +337,7 @@
       top: 0;
       bottom: 0;
       width: 25%;
+      cursor: pointer;
     }
     .btn-go-forward,
     :scope.rtol .btn-go-back {
