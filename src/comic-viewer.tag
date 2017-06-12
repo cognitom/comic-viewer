@@ -4,9 +4,7 @@
   <header if={title && toolbarMode}>{title}</header>
   <div class="outer" style={outerStyle}>
     <div ref="stage" class="inner" style={innerStyle} onclick={toggleMode} ondblclick={toggleFullScreen}>
-      <img if={plusOneLeft} class="dummy" src={stack[rightToLeft ? stack.length - 1 : 0].url} />
-      <img each={stack} src={url} />
-      <img if={plusOneRight} class="dummy" src={stack[rightToLeft ? 0 : stack.length - 1].url} />
+      <img each={stack} class={dummy: dummy} src={url} />
     </div>
   </div>
   <footer if={toolbarMode}>
@@ -96,9 +94,10 @@
       const to = to0 < len ? to0 : len
       const plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len)
       const currentIndexInStack = cur - from
-      const stack = rToL ? book.pages.slice(from, to).reverse() : book.pages.slice(from, to)
-      const plusOneLeft = plusOneBefore && !rToL || plusOneAfter && rToL
-      const plusOneRight = plusOneBefore && rToL || plusOneAfter && !rToL
+      const pages = book.pages.slice(from, to)
+      if (plusOneBefore) pages.unshift({dummy: true, url: pages[0].url})
+      if (plusOneAfter) pages.push({dummy: true, url: pages[pages.length - 1].url})
+      const stack = rToL ? pages.reverse() : pages
       const styleWidth = fullScreenMode ? window.innerWidth : opts.width ? `width:${opts.width}px;` : ''
       const styleHeight = fullScreenMode ? window.innerHeight : opts.height ? `height:${opts.height}px;` : ''
       const style = styleWidth + styleHeight
@@ -143,9 +142,7 @@
         currentIndexInStack,
         scrollLeft,
         innerStyle,
-        stack,
-        plusOneLeft,
-        plusOneRight
+        stack
       })
     })
 
