@@ -145,9 +145,7 @@
     })
 
     this.on('updated', () => {
-      wait(50).then(() => {
-        this.refs.stage.scrollLeft = this.scrollLeft
-      })
+      this.refs.stage.scrollLeft = this.scrollLeft
     })
 
     this.on('unmount', () => {
@@ -187,7 +185,7 @@
         return scrollTo(sw * 2, duration, true, stage).then(this.goBack)
       } else {
         // keep
-        return scrollTo(this.scrollLeft, duration, true, stage)
+        return scrollTo(this.scrollLeft, duration, true, stage).then(this.update)
       }
     }
     
