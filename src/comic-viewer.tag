@@ -175,7 +175,11 @@
       const stage = this.refs.stage
       const sw = this.stageWidth
       const diff = stage.scrollLeft - this.scrollLeft
-      if (diff < sw * -1 * threshold) {
+      
+      if (Math.abs(diff) < 1) {
+        // no change
+        return Promise.resolve()
+      } else if (diff < sw * -1 * threshold) {
         // go to next page
         return scrollTo(0, duration, true, stage).then(this.goForward)
       } else if (diff > sw * threshold) {
@@ -183,7 +187,7 @@
         return scrollTo(sw * 2, duration, true, stage).then(this.goBack)
       } else {
         // keep
-        return scrollTo(this.scrollLeft, duration, true, stage).then(this.update)
+        return scrollTo(this.scrollLeft, duration, true, stage)
       }
     }
     
