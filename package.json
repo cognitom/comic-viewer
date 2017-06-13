@@ -1,6 +1,6 @@
 {
   "name": "comic-viewer-tag",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Display pictures in comic-like-style",
   "main": "dist/comic-viewer.cjs.js",
   "module": "dist/comic-viewer.es.js",
