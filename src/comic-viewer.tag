@@ -306,6 +306,7 @@
       background: rgba(0,0,0,.8);
       color: rgba(255,255,255,.7);
       padding: 14px;
+      box-sizing: content-box;
     }
     footer > icon-arrow-left,
     footer > icon-arrow-right {
