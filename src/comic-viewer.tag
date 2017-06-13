@@ -4,7 +4,7 @@
   <header if={title && toolbarMode}>{title}</header>
   <div class="outer" style={outerStyle}>
     <div ref="stage" class="inner" style={innerStyle} onclick={toggleMode} ondblclick={toggleFullScreen}>
-      <img each={stack} class={dummy: dummy} src={url} />
+      <span each={stack} class={dummy: dummy} style="width: {width * parent.pageScale}px; background-image: url({url});"></span>
     </div>
   </div>
   <footer if={toolbarMode}>
@@ -34,10 +34,12 @@
 
     this.pageCount = 0
     this.currentIndex = 0
-    this.currentIndexInStack = 0 // in the stack
+    this.pageScale = 1
     this.stack = []
 
     this.style = ''
+    this.outerStyle = ''
+    this.innerStyle = ''
     this.landscapeMode = false
     this.toolbarMode = false
     this.fullScreenMode = false
@@ -51,6 +53,7 @@
       })
       book.on('pageLoaded', page => {
         if (iAmBusy) return
+        if (!this.stack.find(p => p.url === page.url)) return
         this.update()
       })
       const title = book.title
@@ -93,11 +96,11 @@
       const to0 = from0 + (landscapeMode ? 6 : 3) - (plusOneBefore && cur === 0)
       const to = to0 < len ? to0 : len
       const plusOneAfter = landscapeMode && !!(len % 2 - !fps) && !!(to === len)
-      const currentIndexInStack = cur - from
-      const pages = book.pages.slice(from, to)
-      if (plusOneBefore) pages.unshift({dummy: true, url: pages[0].url})
-      if (plusOneAfter) pages.push({dummy: true, url: pages[pages.length - 1].url})
-      const stack = rToL ? pages.reverse() : pages
+      const stack0 = book.pages.slice(from, to)
+      const dummyB = plusOneBefore ? Object.assign({dummy: true}, stack0[0]) : []
+      const dummyA = plusOneAfter ? Object.assign({dummy: true}, stack0[stack0.length - 1]) : []
+      const stack1 = [].concat(dummyB, stack0, dummyA)
+      const stack = rToL ? [].concat(stack1).reverse() : [].concat(stack1)
       const styleWidth = fullScreenMode ? window.innerWidth : opts.width ? `width:${opts.width}px;` : ''
       const styleHeight = fullScreenMode ? window.innerHeight : opts.height ? `height:${opts.height}px;` : ''
       const style = styleWidth + styleHeight
@@ -124,22 +127,17 @@
         height: ${stageHeight}px;
       `
 
-      const taken = rToL
-        ? stack.slice(currentIndexInStack + (landscapeMode && !(plusOneBefore && cur === 0) ? 2 : 1), stack.length)
-        : stack.slice(0, currentIndexInStack)
-      const scrollLeft = pageScale * (
-        (!rToL && plusOneBefore && cur > 0 ? book.pages[0].width : 0) +
-        taken.reduce((acc, page) => acc + page.width, 0) +
-        (rToL && plusOneAfter && cur < len - 1 ? book.pages[len - 1].width : 0)
-      )
+      const pos = cur - from + (plusOneBefore && cur > 0 ? 1 : 0)
+      const taken = rToL ? stack1.slice(pos + (landscapeMode ? 2 : 1), stack1.length) : stack1.slice(0, pos)
+      const scrollLeft = pageScale * taken.reduce((acc, page) => acc + page.width, 0)
 
       Object.assign(this, {
         fullScreenMode,
         landscapeMode,
         style,
+        pageScale,
         stageWidth,
         outerStyle,
-        currentIndexInStack,
         scrollLeft,
         innerStyle,
         stack
@@ -324,10 +322,11 @@
     }
     .inner {
       padding-bottom: 30px;
-      display: flex;
-      flex-direction: row;
+      display: block;
+      /* display: flex;
+      flex-direction: row; */
       overflow: hidden;
-      -webkit-overflow-scrolling: auto;
+      white-space: nowrap;
     }
     .btn-go-forward,
     .btn-go-back {
@@ -346,10 +345,13 @@
       right: auto;
       left: 0;
     }
-    div > img {
+    .inner > span {
       height: 100%;
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
-    div > img.dummy {
+    .inner > span.dummy {
       visibility: hidden;
     }
   </style>
