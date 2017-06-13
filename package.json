@@ -4,6 +4,24 @@
   "description": "Display pictures in comic-like-style",
   "main": "dist/comic-viewer.cjs.js",
   "module": "dist/comic-viewer.es.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/cognitom/comic-viewer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cognitom/comic-viewer.git"
+  },
+  "keywords": [
+    "riot",
+    "viewer",
+    "comic"
+  ],
+  "author": "Tsutomu Kawamura",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cognitom/comic-viewer/issues"
+  },
   "scripts": {
     "start": "npm run build; npm run watch & npm run server",
     "build": "rollup -c && npm run uglify && npm run copy",
@@ -42,6 +60,5 @@
     "wdio-spec-reporter": "0.1.0",
     "wdio-testingbot-service": "^0.1.7",
     "webdriverio": "^4.7.1"
-  },
-  "license": "MIT"
+  }
 }
