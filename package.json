@@ -10,7 +10,7 @@
     "copy": "cp dist/comic-viewer.js docs/",
     "uglify": "uglifyjs dist/comic-viewer.js --compress --mangle --output dist/comic-viewer.min.js",
     "watch": "chokidar 'src/**' -c 'npm run build'",
-    "server": "live-server demo/",
+    "server": "live-server docs/",
     "test": "npm run standard && npm run test-unit",
     "standard": "standard src/*.js test/*.js test/*/*.js",
     "test-unit": "mocha --compilers js:babel-register test/unit/*.js"
