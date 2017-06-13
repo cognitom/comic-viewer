@@ -2,6 +2,8 @@
 
 > A comic viewer built on Riot.js.
 
+See [this demo](https://cognitom.github.io/comic-viewer/).
+
 ```html
 <comic-viewer title="Sample" pages="images/[000-012].jpg"></comic-viewer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.3.1/riot.min.js"></script>
