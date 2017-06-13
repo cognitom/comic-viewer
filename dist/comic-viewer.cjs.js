@@ -327,12 +327,6 @@ function now() {
   return window.performance ? window.performance.now() : window.Date.now();
 }
 
-function wait(ms) {
-  return new Promise(function (resolve, reject) {
-    window.setTimeout(resolve, ms);
-  });
-}
-
 function isSupported(el) {
   if (el.requestFullscreen) return true;
   if (el.webkitRequestFullscreen) return true;
@@ -490,9 +484,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
   });
 
   this.on('updated', function () {
-    wait(50).then(function () {
-      _this.refs.stage.scrollLeft = _this.scrollLeft;
-    });
+    _this.refs.stage.scrollLeft = _this.scrollLeft;
   });
 
   this.on('unmount', function () {
@@ -531,7 +523,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
       return scrollTo(sw * 2, duration, true, stage).then(_this.goBack);
     } else {
 
-      return scrollTo(_this.scrollLeft, duration, true, stage);
+      return scrollTo(_this.scrollLeft, duration, true, stage).then(_this.update);
     }
   };
 
