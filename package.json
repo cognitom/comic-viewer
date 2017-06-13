@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run build; npm run watch & npm run server",
     "build": "rollup -c && npm run uglify && npm run copy",
-    "copy": "cp dist/comic-viewer.js demo/",
+    "copy": "cp dist/comic-viewer.js docs/",
     "uglify": "uglifyjs dist/comic-viewer.js --compress --mangle --output dist/comic-viewer.min.js",
     "deploy": "gh-pages -d dist",
     "watch": "chokidar 'src/**' -c 'npm run build'",
