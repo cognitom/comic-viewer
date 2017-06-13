@@ -101,9 +101,6 @@
       const dummyA = plusOneAfter ? Object.assign({dummy: true}, stack0[stack0.length - 1]) : []
       const stack1 = [].concat(dummyB, stack0, dummyA)
       const stack = rToL ? [].concat(stack1).reverse() : [].concat(stack1)
-      const styleWidth = fullScreenMode ? window.innerWidth : opts.width ? `width:${opts.width}px;` : ''
-      const styleHeight = fullScreenMode ? window.innerHeight : opts.height ? `height:${opts.height}px;` : ''
-      const style = styleWidth + styleHeight
       const pw = stack.length ? stack[0].width : book.defaultPageWidth
       const ph = stack.length ? stack[0].height : book.defaultPageHeight
       const wph = w / h
@@ -116,8 +113,14 @@
       const fullScreenPolyfill = fullScreenIsSupported || !fullScreenMode ? '' : `
         position: fixed;
         top: 0; right: 0; bottom: 0; left: 0;
+        width: ${window.innerWidth}px;
+        height: ${window.innerHeight}px;
+        z-index: 2147483647;
       `
-      const outerStyle = fullScreenPolyfill + `
+      const style = fullScreenPolyfill + (
+        fullScreenMode ? ';' : (opts.width ? `width:${opts.width}px;` : '') + (opts.height ? `height:${opts.height}px;` : '')
+      )
+      const outerStyle = `
         width: ${stageWidth}px;
         height: ${stageHeight}px;
         margin: ${stageMarginTop}px ${stageMarginRight}px;
@@ -280,7 +283,6 @@
     .btn-go-forward,
     .btn-go-back {
       position: absolute;
-      z-index: 100;
     }    
     :scope.fullscreen header,
     :scope.fullscreen footer,
@@ -299,6 +301,7 @@
       line-height: 24px;
       font-size: 80%;
       overflow: hidden;
+      box-sizing: content-box;
     }
     footer {
       bottom: 0;
@@ -322,6 +325,7 @@
     }
     .outer {
       overflow: hidden;
+      box-sizing: content-box;
     }
     .inner {
       padding-bottom: 30px;
@@ -330,6 +334,7 @@
       flex-direction: row; */
       overflow: hidden;
       white-space: nowrap;
+      box-sizing: content-box;
     }
     .btn-go-forward,
     .btn-go-back {
