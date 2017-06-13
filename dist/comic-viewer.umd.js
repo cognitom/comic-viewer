@@ -389,7 +389,7 @@ riot.tag2('comic-viewer', '<div class="btn-go-forward" onclick="{goForward}"></d
   this.outerStyle = '';
   this.innerStyle = '';
   this.landscapeMode = false;
-  this.toolbarMode = false;
+  this.toolbarMode = true;
   this.fullScreenMode = false;
 
   this.on('mount', function () {
